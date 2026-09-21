@@ -1,6 +1,7 @@
 # Build an AI Agent by Hand
 
 ---------============Tl;Dr==========----------------
+
 Thanks to tools like Claude Code, ANYONE can build software far more complex than they understand. 
 I think it's important to understand HOW these agents work, so this is a very simple project
 that will allow anyone to do so. 
