@@ -259,17 +259,25 @@ This is the agent. It lives in `run_agent()`.
 
 **Step 1: give the model its goal and its tools.**
 
+The goal is set near the top of the file, so it's easy to change:
+
+```python
+goal = "You are an agent in a maze. Your goal is to find and eat the correct kind of food."
+```
+
+and sent to the model along with the tools:
+
 ```python
 response = client.responses.create(
     model=MODEL,
-    input="You are an agent in a maze. Your goal is to find and eat the correct kind food.",
+    input=goal,
     tools=tools,
     reasoning={"effort": "medium", "summary": "auto"},
 )
 ```
 
 The goal is deliberately vague. It never says "apple", so the agent has to look
-around and work out what "the correct kind food" is.
+around and work out what "the correct kind of food" is.
 
 **Step 2: find the tool calls in the reply.** The model can ask for several tools
 in one reply, so we collect them all. If there are none, the model thinks it's
@@ -365,7 +373,7 @@ get better.
 
 ## Things to try
 
-1. **Make the goal clearer.** Change the starting prompt to
+1. **Make the goal clearer.** Change `goal` at the top of the file to
    `"Find the apple and eat it before you run out of energy."`
    Do the average moves go down?
 2. **Remove `look`.** Delete it from `tools` and `tool_functions`. Can the agent

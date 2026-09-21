@@ -18,6 +18,10 @@ import json
 import os
 import sys
 
+#CHANGE GOAL HERE=============------------------------
+goal = "You are an agent in a maze. Your goal is to find and eat the correct kind of food."
+
+#STOP CHANGING HERE=============------------------------
 # Stop with clear instructions if the required packages aren't installed
 try:
     from openai import OpenAI
@@ -195,7 +199,7 @@ def eat(item):
 
 
 def create_food(item):
-    """Create an item in the current room. Currently disabled (see tool_functions)."""
+    """Create an item in the current room."""
     current_room = world["rooms"][world["location"]]
 
     if item in current_room["items"]:
@@ -210,8 +214,8 @@ tool_functions = {
     "move":   move,
     "look":   look,
     "pickup": pickup,
-    "eat":    eat,
-    # "create_food": create_food,
+    "eat":    eat
+    #,"create_food": create_food,
 }
 
 
@@ -306,9 +310,7 @@ tools = [
     #     "type": "function",
     #     "name": "create_food",
     #     "description": (
-    #         "Instantly make a food item (for example an apple) appear in the room "
-    #         "you are in right now. No ingredients, tools or crafting station are "
-    #         "needed, and it costs no energy. Afterwards, use pickup and then eat."
+    #         "Instantly make a food item appear in the room "
     #     ),
     #     "parameters": {
     #         "type": "object",
@@ -356,7 +358,7 @@ def run_agent(run):
     # Step 1: Give the model its goal and its tools
     response = client.responses.create(
         model=MODEL,
-        input="You are an agent in a maze. Your goal is to find and eat the correct kind food.",
+        input=goal,
         tools=tools,
         reasoning={"effort": "medium", "summary": "auto"},
     )
