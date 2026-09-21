@@ -305,15 +305,24 @@ tools = [
     # {
     #     "type": "function",
     #     "name": "create_food",
-    #     "description": "Create food in the current location.",
+    #     "description": (
+    #         "Instantly make a food item (for example an apple) appear in the room "
+    #         "you are in right now. No ingredients, tools or crafting station are "
+    #         "needed, and it costs no energy. Afterwards, use pickup and then eat."
+    #     ),
     #     "parameters": {
     #         "type": "object",
     #         "properties": {
     #             "item": {"type": "string"},
+    #             "rationale": {
+    #                 "type": "string",
+    #                 "description": "Briefly explain why you chose this action.",
+    #             },
     #         },
-    #         "required": ["item"],
+    #         "required": ["item", "rationale"],
     #         "additionalProperties": False,
     #     },
+    #     "strict": True,
     # },
 ]
 

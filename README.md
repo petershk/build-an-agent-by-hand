@@ -378,6 +378,14 @@ get better.
    in `tool_functions` and `tools`. What does the agent do when it can make its
    own food?
 
+   Then try changing its description back to the short
+   `"Create food in the current location."` and run it again. With that
+   description, the agent may go looking for a kitchen or a crafting station
+   instead of using the tool, because nothing tells it that creating food is
+   instant and free. The code is identical; only the words changed. **The model
+   only knows what your descriptions tell it**, so write them for a reader who
+   can't see your code.
+
 ## The takeaway
 
 Every agent framework, however big, is built from these same four parts:
