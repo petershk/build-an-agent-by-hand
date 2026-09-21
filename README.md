@@ -1,8 +1,13 @@
 # Build an AI Agent by Hand
 
-People talk about AI "agents" as if they were complicated. They aren't. An agent is
-a language model inside an ordinary `for` loop, plus a few Python functions it's
-allowed to call.
+---------============Tl;Dr==========----------------
+Thanks to tools like Claude Code, ANYONE can build software far more complex than they understand. 
+I think it's important to understand HOW these agents work, so this is a very simple project
+that will allow anyone to do so. 
+
+An agent is a language model inside an ordinary `for` loop, plus a few Python functions it's
+allowed to call. Don't worry if you don't understand Python, you can still follow along and make some
+changes to learn how agents like Claude Code work.
 
 This repo builds one from scratch, with no agent framework: just the OpenAI Python
 library and about 450 lines of heavily commented code. The agent is dropped into a
@@ -26,16 +31,17 @@ Tool result: Agent moved north. Energy left: 9
 
 You need Python 3.9+ and an OpenAI API key.
 
-```bash
+TYPE THIS IN A COMMAND PROMPT (cmd or powershell on Windows)
 git clone https://github.com/petershk/build-an-agent-by-hand.git
 cd build-an-agent-by-hand
 pip install -r requirements.txt
-```
+
 
 Get a key at <https://platform.openai.com/api-keys>, then set it in your terminal
-(replace `sk-...` with your key):
+(replace `sk-...` with your key).
+Literally type $env:OPEN_API_KEY="(your key)" 
 
-| Terminal        | Command                               |
+| Terminal        | Command (literally type this at the prompt
 |-----------------|---------------------------------------|
 | PowerShell      | `$env:OPENAI_API_KEY = "sk-..."`      |
 | Command Prompt  | `set OPENAI_API_KEY=sk-...`           |
@@ -43,9 +49,9 @@ Get a key at <https://platform.openai.com/api-keys>, then set it in your termina
 
 Then run it from the same terminal window:
 
-```bash
+TYPE THIS:
 python simple_ai_maze.py
-```
+
 
 The game is played three times, with the apple in a different room each time, and
 a summary is printed at the end. Each run makes a handful of API calls, so it costs
@@ -90,7 +96,8 @@ walks through how `simple_ai_maze.py` builds each piece.
 ## Part 1: The world
 
 The agent needs something to act on. Here that's a tiny cave, stored as a plain
-Python dictionary:
+Python dictionary (note: if you don't know what a dictionary is, don't worry about it. 
+This is just a way of telling the program that there are 3 rooms and some information about them):
 
 ```python
 "rooms": {
@@ -131,6 +138,11 @@ The important rule: **every tool returns a string, and that string is all the
 model ever sees.** The model has no idea what's in the `world` dictionary. It only
 knows what the tools tell it.
 
+Functionally when this program runs the OpenAI Model is "told" it has these 
+tools available and the text tells it what they do. Those are the tools it 
+will use to try and complete its objective, which is also just another
+string.
+
 ```python
 def move(direction):
     """Move to the next room in the given direction. Costs 1 energy."""
@@ -167,9 +179,15 @@ tool_functions = {
 
 ## Part 3: Describing the tools to the model
 
-The model can't read your Python code, so you describe each tool in
+The model can't read your Python code, so you describe each tool in JSON
 [JSON Schema](https://json-schema.org/): its name, what it does, and what
-arguments it takes.
+arguments it takes. Again, if you don't know what JSON is... don't worry 
+about it. It's just ANOTHER way of formatting information. In this case
+it is how the OpenAI Model "reads" what tools it has, what they do and 
+how they are used. For example, the model is told that "move" is a "function"
+(i.e. something that it can DO) that "moves the agent in a specified direction."
+The model must give it a direction, and options are "north, south, east and west."
+It also has to report WHY it chose to move in that direction.
 
 ```python
 {
