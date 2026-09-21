@@ -28,21 +28,46 @@ Tool result: Agent moved north. Energy left: 9
 ...
 ```
 
+## Before you start
+
+You need three things. If you already have them, skip to **Run it**.
+
+1. **Python 3.9 or newer.** Download it from <https://www.python.org/downloads/>.
+   On Windows, tick **"Add python.exe to PATH"** at the bottom of the first
+   installer screen, or the commands below won't work. To check it worked, open
+   a new terminal and type:
+
+   ```
+   python --version
+   ```
+
+   On a Mac, use `python3` instead of `python` everywhere on this page.
+
+2. **The code.** Either install [Git](https://git-scm.com/downloads) and use the
+   `git clone` command below, or click the green **Code** button at the top of this
+   page, choose **Download ZIP**, and unzip it.
+
+3. **An OpenAI API key.** Get one at <https://platform.openai.com/api-keys>.
+   Using it costs money, so you'll need to add a little credit to your account.
+
 ## Run it
 
-You need Python 3.9+ and an OpenAI API key.
+TYPE THIS IN A COMMAND PROMPT (cmd or powershell on Windows):
 
-TYPE THIS IN A COMMAND PROMPT (cmd or powershell on Windows)
+```
 git clone https://github.com/petershk/build-an-agent-by-hand.git
 cd build-an-agent-by-hand
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
+```
 
+If you downloaded the ZIP instead, skip the `git clone` line and `cd` into the
+unzipped folder. The last line installs everything the program needs, which is
+listed in `requirements.txt`.
 
-Get a key at <https://platform.openai.com/api-keys>, then set it in your terminal
-(replace `sk-...` with your key).
-Literally type $env:OPEN_API_KEY="(your key)" 
+Now set your API key in the same terminal (replace `sk-...` with your key).
+On Windows PowerShell, literally type `$env:OPENAI_API_KEY="sk-..."`
 
-| Terminal        | Command (literally type this at the prompt
+| Terminal        | Command (literally type this at the prompt) |
 |-----------------|---------------------------------------|
 | PowerShell      | `$env:OPENAI_API_KEY = "sk-..."`      |
 | Command Prompt  | `set OPENAI_API_KEY=sk-...`           |
@@ -51,8 +76,10 @@ Literally type $env:OPEN_API_KEY="(your key)"
 Then run it from the same terminal window:
 
 TYPE THIS:
-python simple_ai_maze.py
 
+```
+python simple_ai_maze.py
+```
 
 The game is played three times, with the apple in a different room each time, and
 a summary is printed at the end. Each run makes a handful of API calls, so it costs

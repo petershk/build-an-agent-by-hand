@@ -18,8 +18,19 @@ import json
 import os
 import sys
 
-from openai import OpenAI
-from rich.console import Console
+# Stop with clear instructions if the required packages aren't installed
+try:
+    from openai import OpenAI
+    from rich.console import Console
+except ImportError as error:
+    sys.exit(
+        f"\nMissing package: {error.name}\n"
+        "\n"
+        "Install everything this program needs by typing this in your terminal,\n"
+        "from the same folder as this file:\n"
+        "\n"
+        "   python -m pip install -r requirements.txt\n"
+    )
 
 
 # ===========================================================================
